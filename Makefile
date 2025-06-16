@@ -1,18 +1,18 @@
 # Copyright 2024 Fantom Foundation
-# This file is part of Norma System Testing Infrastructure for Sonic.
+# This file is part of Hyperion System Testing Infrastructure for Sonic.
 #
-# Norma is free software: you can redistribute it and/or modify
+# Hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Norma is distributed in the hope that it will be useful,
+# Hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
-# along with Norma. If not, see <http://www.gnu.org/licenses/>.
+# along with Hyperion. If not, see <http://www.gnu.org/licenses/>.
 
 BUILD_DIR := $(CURDIR)/build
 
@@ -23,7 +23,7 @@ CLIENT_VERSIONS := v2.0.3 v2.0.2 v2.0.1 v2.0.0
 CLIENT_URL=https://github.com/0xsoniclabs/sonic.git
 
 all: \
-    norma \
+    hyperion \
     pull-hello-world-image \
     pull-alpine-image \
     pull-prometheus-image \
@@ -82,8 +82,8 @@ load/contracts/abi/Helper.abi: load/contracts/Helper.sol
 generate-mocks: # requires installed mockgen
 	go generate ./...
 
-norma: pull-prometheus-image build-sonic-docker-image-main
-	go build -o $(BUILD_DIR)/norma ./driver/norma
+hyperion: pull-prometheus-image build-sonic-docker-image-main
+	go build -o $(BUILD_DIR)/hyperion ./driver/norma
 
 test: pull-hello-world-image pull-alpine-image pull-prometheus-image build-sonic-docker-image-main
 	go test ./... -v

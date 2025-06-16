@@ -37,28 +37,28 @@ COPY --from=client-src . .
 RUN --mount=type=cache,target=/root/.cache/go-build make sonicd sonictool
 
 #
-# Stage 1b: Build Norma related tools supporting Client runs.
+# Stage 1b: Build Hyperion related tools supporting Client runs.
 #
-# It prepeares an image with dependencies for the norma.
+# It prepeares an image with dependencies for the hyperion.
 # Its caches the dependencies first, so that the build is faster.
 #
-# It checks out the local version of the norma, and builds it.
+# It checks out the local version of the hyperion, and builds it.
 #
-FROM golang:1.24 AS norma-build
+FROM golang:1.24 AS hyperion-build
 
-# Download dependencies supporting Sonic run first to cache them for faster build when Norma changes.
+# Download dependencies supporting Sonic run first to cache them for faster build when Hyperion changes.
 WORKDIR /
 COPY genesis/go.mod go.mod
 RUN go mod download
 
-# Build norma itself
+# Build hyperion itself
 WORKDIR /genesistools
 COPY /genesis/ ./
 RUN --mount=type=cache,target=/root/.cache/go-build make genesistools
 
 #
 # Stage 2: Build the final image
-# It consists of the client binaries and the norma tools supporting runtime of the client.
+# It consists of the client binaries and the hyperion tools supporting runtime of the client.
 #
 FROM debian:bookworm
 
@@ -66,7 +66,7 @@ RUN apt-get update && \
     apt-get install iproute2 iputils-ping -y
 
 COPY --from=client-build /client/build/sonicd /client/build/sonictool ./
-COPY --from=norma-build /genesistools/build/genesistools ./
+COPY --from=hyperion-build /genesistools/build/genesistools ./
 
 ENV STATE_DB_IMPL="geth"
 ENV VM_IMPL="geth"

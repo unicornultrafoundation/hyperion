@@ -1,18 +1,18 @@
 // Copyright 2024 Fantom Foundation
-// This file is part of Norma System Testing Infrastructure for Sonic.
+// This file is part of Hyperion System Testing Infrastructure for Sonic.
 //
-// Norma is free software: you can redistribute it and/or modify
+// Hyperion is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Norma is distributed in the hope that it will be useful,
+// Hyperion is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with Norma. If not, see <http://www.gnu.org/licenses/>.
+// along with Hyperion. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -24,23 +24,23 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/0xsoniclabs/norma/driver/checking"
+	"github.com/0xsoniclabs/hyperion/driver/checking"
 	"golang.org/x/exp/maps"
 
-	"github.com/0xsoniclabs/norma/analysis/report"
-	"github.com/0xsoniclabs/norma/driver"
-	"github.com/0xsoniclabs/norma/driver/executor"
-	"github.com/0xsoniclabs/norma/driver/monitoring"
-	_ "github.com/0xsoniclabs/norma/driver/monitoring/app"
-	prometheusmon "github.com/0xsoniclabs/norma/driver/monitoring/prometheus"
-	_ "github.com/0xsoniclabs/norma/driver/monitoring/user"
-	"github.com/0xsoniclabs/norma/driver/network/external"
-	"github.com/0xsoniclabs/norma/driver/network/local"
-	"github.com/0xsoniclabs/norma/driver/parser"
+	"github.com/0xsoniclabs/hyperion/analysis/report"
+	"github.com/0xsoniclabs/hyperion/driver"
+	"github.com/0xsoniclabs/hyperion/driver/executor"
+	"github.com/0xsoniclabs/hyperion/driver/monitoring"
+	_ "github.com/0xsoniclabs/hyperion/driver/monitoring/app"
+	prometheusmon "github.com/0xsoniclabs/hyperion/driver/monitoring/prometheus"
+	_ "github.com/0xsoniclabs/hyperion/driver/monitoring/user"
+	"github.com/0xsoniclabs/hyperion/driver/network/external"
+	"github.com/0xsoniclabs/hyperion/driver/network/local"
+	"github.com/0xsoniclabs/hyperion/driver/parser"
 	"github.com/urfave/cli/v2"
 )
 
-// Run with `go run ./driver/norma run <scenario.yml>`
+// Run with `go run ./driver/hyperion run <scenario.yml>`
 
 var runCommand = cli.Command{
 	Action: run,
@@ -148,8 +148,8 @@ func run(ctx *cli.Context) (err error) {
 
 func runScenario(path, outputDir, label string, keepPrometheusRunning, skipChecks, skipReportRendering bool, externalRpc string, chainId int64) error {
 
-	// if not configured, default to /tmp/norma_data_<label>_<timestamp> else /configured/path/norma_data_<l>_<t>
-	outputDir, err := os.MkdirTemp(outputDir, fmt.Sprintf("norma_data_%s_", label))
+	// if not configured, default to /tmp/hyperion_data_<label>_<timestamp> else /configured/path/hyperion_data_<l>_<t>
+	outputDir, err := os.MkdirTemp(outputDir, fmt.Sprintf("hyperion_data_%s_", label))
 	if err != nil {
 		return fmt.Errorf("couldn't create temp dir for output; %w", err)
 	}
@@ -167,7 +167,7 @@ func runScenario(path, outputDir, label string, keepPrometheusRunning, skipCheck
 	fmt.Printf("Starting evaluation %s\n", label)
 
 	// create symlink as qol (_latest => _####) where #### is the randomly generated name
-	symlink := filepath.Join(filepath.Dir(outputDir), fmt.Sprintf("norma_data_%s_latest", label))
+	symlink := filepath.Join(filepath.Dir(outputDir), fmt.Sprintf("hyperion_data_%s_latest", label))
 	if _, err := os.Lstat(symlink); err == nil {
 		os.Remove(symlink)
 	}
@@ -256,7 +256,7 @@ func runScenario(path, outputDir, label string, keepPrometheusRunning, skipCheck
 			}
 		} else {
 			fmt.Printf("Report rendering skipped\n")
-			fmt.Printf("To render report run `norma render %s`\n", monitor.GetMeasurementFileName())
+			fmt.Printf("To render report run `hyperion render %s`\n", monitor.GetMeasurementFileName())
 		}
 	}()
 

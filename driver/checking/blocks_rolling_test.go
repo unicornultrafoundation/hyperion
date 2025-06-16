@@ -1,7 +1,7 @@
 package checking
 
 import (
-	"github.com/0xsoniclabs/norma/driver/monitoring"
+	"github.com/0xsoniclabs/hyperion/driver/monitoring"
 	"go.uber.org/mock/gomock"
 	"testing"
 )

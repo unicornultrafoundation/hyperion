@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/0xsoniclabs/norma/driver"
+	"github.com/0xsoniclabs/hyperion/driver"
 	"go.uber.org/mock/gomock"
 	"math/rand"
 	"testing"

@@ -11,7 +11,7 @@ package checking
 import (
 	reflect "reflect"
 
-	monitoring "github.com/0xsoniclabs/norma/driver/monitoring"
+	monitoring "github.com/0xsoniclabs/hyperion/driver/monitoring"
 	gomock "go.uber.org/mock/gomock"
 )
 

@@ -8,9 +8,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/0xsoniclabs/norma/driver"
-	"github.com/0xsoniclabs/norma/driver/network/external"
-	"github.com/0xsoniclabs/norma/driver/parser"
+	"github.com/0xsoniclabs/hyperion/driver"
+	"github.com/0xsoniclabs/hyperion/driver/network/external"
+	"github.com/0xsoniclabs/hyperion/driver/parser"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 			Validators:    []driver.Validator{}, // No validators needed for external
 			RoundTripTime: 0,
 			NetworkRules:  map[string]string{},
-			OutputDir:     "/tmp/norma_external",
+			OutputDir:     "/tmp/hyperion_external",
 		},
 		RpcEndpoints: []string{rpcEndpoint},
 		ChainID:      chainID,

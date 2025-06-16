@@ -2,9 +2,9 @@ package checking
 
 import (
 	"fmt"
-	"github.com/0xsoniclabs/norma/driver"
-	"github.com/0xsoniclabs/norma/driver/monitoring"
-	nodemon "github.com/0xsoniclabs/norma/driver/monitoring/node"
+	"github.com/0xsoniclabs/hyperion/driver"
+	"github.com/0xsoniclabs/hyperion/driver/monitoring"
+	nodemon "github.com/0xsoniclabs/hyperion/driver/monitoring/node"
 )
 
 func init() {

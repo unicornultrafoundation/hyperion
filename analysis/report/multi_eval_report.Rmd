@@ -1,5 +1,5 @@
 ---
-title: "Norma Evaluation Diffing"
+title: "Hyperion Evaluation Diffing"
 output: html_document
 date: "`r Sys.Date()`"
 params:
@@ -26,7 +26,7 @@ start_times <- all_data %>%
 all_data_with_start_time <- inner_join(all_data, start_times, by = "run")
 ```
 
-This report compares the execution of multiple Norma evaluations.
+This report compares the execution of multiple Hyperion evaluations.
 
 ## Application Metrics
 

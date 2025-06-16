@@ -1,18 +1,18 @@
 // Copyright 2024 Fantom Foundation
-// This file is part of Norma System Testing Infrastructure for Sonic.
+// This file is part of Hyperion System Testing Infrastructure for Sonic.
 //
-// Norma is free software: you can redistribute it and/or modify
+// Hyperion is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Norma is distributed in the hope that it will be useful,
+// Hyperion is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with Norma. If not, see <http://www.gnu.org/licenses/>.
+// along with Hyperion. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -52,12 +52,12 @@ var validatorCommand = cli.Command{
 			Flags: []cli.Flag{
 				&cli.IntFlag{
 					Name:    "validator-id",
-					Usage:   "validator id from which to generate norma-privatenet validator keys",
+					Usage:   "validator id from which to generate hyperion-privatenet validator keys",
 					Aliases: []string{"id"},
 				},
 				&cli.StringFlag{
 					Name:    "validator-private-key",
-					Usage:   "validator private key from which to generate norma-privatenet validator keys",
+					Usage:   "validator private key from which to generate hyperion-privatenet validator keys",
 					Aliases: []string{"k"},
 				},
 				&cli.PathFlag{

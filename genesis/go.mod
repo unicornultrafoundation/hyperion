@@ -1,4 +1,4 @@
-module github.com/0xsoniclabs/norma/genesistools
+module github.com/0xsoniclabs/hyperion/genesistools
 
 go 1.24.0
 

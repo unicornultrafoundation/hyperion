@@ -2,7 +2,7 @@ package network
 
 import (
 	"fmt"
-	"github.com/0xsoniclabs/norma/genesistools/genesis"
+	"github.com/0xsoniclabs/hyperion/genesistools/genesis"
 	"github.com/0xsoniclabs/sonic/gossip/contract/driverauth100"
 	"github.com/ethereum/go-ethereum/core/types"
 	"go.uber.org/mock/gomock"

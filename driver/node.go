@@ -1,31 +1,31 @@
 // Copyright 2024 Fantom Foundation
-// This file is part of Norma System Testing Infrastructure for Sonic.
+// This file is part of Hyperion System Testing Infrastructure for Sonic.
 //
-// Norma is free software: you can redistribute it and/or modify
+// Hyperion is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Norma is distributed in the hope that it will be useful,
+// Hyperion is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with Norma. If not, see <http://www.gnu.org/licenses/>.
+// along with Hyperion. If not, see <http://www.gnu.org/licenses/>.
 
 package driver
 
 import (
 	"io"
 
-	"github.com/0xsoniclabs/norma/driver/network"
-	"github.com/0xsoniclabs/norma/driver/rpc"
+	"github.com/0xsoniclabs/hyperion/driver/network"
+	"github.com/0xsoniclabs/hyperion/driver/rpc"
 )
 
 //go:generate mockgen -source node.go -destination node_mock.go -package driver
 
-// Node is controlling a single node in a Norma network. It provides abstract
+// Node is controlling a single node in a Hyperion network. It provides abstract
 // control of a node, allowing it to be started (through an Environment),
 // interact with the node, and shut it down.
 type Node interface {
@@ -45,7 +45,7 @@ type Node interface {
 	// IsRunning returns true if the node is still running, false if stopped.
 	IsRunning() bool
 
-	// GetNodeID returns an enode identifying this node within the Norma network.
+	// GetNodeID returns an enode identifying this node within the Hyperion network.
 	// An error shall be produced if no valid node ID could be obtained.
 	GetNodeID() (NodeID, error)
 

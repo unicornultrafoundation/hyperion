@@ -1,5 +1,5 @@
 ---
-title: "Norma Evaluation Summary"
+title: "Hyperion Evaluation Summary"
 output: html_document
 date: "`r Sys.Date()`"
 params:
@@ -17,7 +17,7 @@ figure_dimensions <- c(10, 4)
 all_data <- read_csv(params$datafile)
 ```
 
-This report summarizes the monitoring results of an execution of a Norma scenario.
+This report summarizes the monitoring results of an execution of a Hyperion scenario.
 
 ## Block Metrics
 

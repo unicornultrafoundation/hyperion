@@ -30,7 +30,7 @@ then
 	VALIDATOR_ADDRESS=${res[1]}
 fi
 
-# Create password file - "password" is default norma/genesistools accounts password
+# Create password file - "password" is default hyperion/genesistools accounts password
 echo password >> password.txt
 VALIDATOR_PASSWORD="password.txt"
 

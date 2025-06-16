@@ -4,17 +4,17 @@ require 'time'
 
 # -------------------------------- Usage --------------------------------------
 #
-# This script can be used to run scalability evaluations of Opera using Norma.
+# This script can be used to run scalability evaluations of Opera using Hyperion.
 #
 # To use the script, have Noma set up in your local repository, configure the
 # parameters in the following section within this script, and run the script
 # in the root directory of Norma using
 #
-#   /path/to/norma:> ruby ./scripts/run_scalability_eval.rb
+#   /path/to/hyperion:> ruby ./scripts/run_scalability_eval.rb
 #
 # The script will run different configurations consecutively and produce a
-# summary report. Paths to the report locations are printed to the console at
-# the end of the evaluation run.
+# report summarizing the results. The script can be executed
+# in the root directory of Hyperion using
 
 # ----------------------------- Configuration ---------------------------------
 
@@ -32,7 +32,7 @@ NUM_VALIDATORs = [1,2,4,6,8,12]
 
 # ---------------------------------- Action -----------------------------------
 
-# Step 1 - build Norma
+# Step 1 - build Hyperion
 puts "Building ... "
 build_ok = system("make -j")
 if !build_ok then
@@ -42,11 +42,11 @@ end
 puts "OK"
 
 
-# Step 2 - run Norma under various configurations
-def runNorma (scenario, db, numValidators)
+# Step 2 - run Hyperion under various configurations
+def runHyperion (scenario, db, numValidators)
     puts "Running #{scenario} with #{db} and #{numValidators} validators .."
     label = "#{db}_#{numValidators}v"
-    cmd = "go run ./driver/norma run --label #{label} --num-validators #{numValidators} --db-impl #{db} #{scenario}"
+    cmd = "go run ./driver/hyperion run --label #{label} --num-validators #{numValidators} --db-impl #{db} #{scenario}"
 
     puts "Running #{cmd}\n"
     
@@ -77,14 +77,14 @@ end
 measurements = []
 DB_IMPLs.each do |db|
     NUM_VALIDATORs.each do |numValidators|
-        datafile = runNorma(SCENARIO, db, numValidators)
+        datafile = runHyperion(SCENARIO, db, numValidators)
         addResult(SCENARIO, db, numValidators, datafile)
         measurements.append(datafile)
     end
 end
 
 # Step3: Generate a report summarizing the results.
-cmd = "go run ./driver/norma diff #{measurements.join(" ")}"
+cmd = "go run ./driver/hyperion diff #{measurements.join(" ")}"
 puts "Running #{cmd} .."
 system(cmd)
 

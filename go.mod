@@ -1,9 +1,9 @@
-module github.com/0xsoniclabs/norma
+module github.com/0xsoniclabs/hyperion
 
 go 1.24.0
 
 require (
-	github.com/0xsoniclabs/norma/genesistools v0.0.0-20250218144827-28263a9a85f9
+	github.com/0xsoniclabs/hyperion/genesistools v0.0.0-20250218144827-28263a9a85f9
 	github.com/docker/docker v27.3.1+incompatible
 	github.com/docker/go-connections v0.5.0
 	github.com/ethereum/go-ethereum v1.15.0
@@ -110,7 +110,7 @@ require (
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
 
-replace github.com/0xsoniclabs/norma/genesistools => ./genesis
+replace github.com/0xsoniclabs/hyperion/genesistools => ./genesis
 
 replace github.com/ethereum/go-ethereum => github.com/0xsoniclabs/go-ethereum v0.0.0-20250210213022-86eca3554809
 

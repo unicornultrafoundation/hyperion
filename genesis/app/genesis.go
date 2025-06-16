@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/0xsoniclabs/norma/genesistools/genesis"
+	"github.com/0xsoniclabs/hyperion/genesistools/genesis"
 	"github.com/0xsoniclabs/sonic/opera"
 	"github.com/urfave/cli/v2"
 	"os"

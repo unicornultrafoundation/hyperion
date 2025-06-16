@@ -1,7 +1,7 @@
 package driver
 
 import (
-	"github.com/0xsoniclabs/norma/driver/parser"
+	"github.com/0xsoniclabs/hyperion/driver/parser"
 	"golang.org/x/exp/slices"
 	"testing"
 )

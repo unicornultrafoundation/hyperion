@@ -12,7 +12,7 @@ yaml_files=("$yaml_dir"/*.yml)
 # Function to run a single YAML file
 run_yaml() {
   local yaml_file=$1
-  go run ./driver/norma run "$yaml_file"
+  go run ./driver/hyperion run "$yaml_file"
   echo "$? $yaml_file" > "$yaml_file.exitcode"
   rm "$yaml_file.job"
 }

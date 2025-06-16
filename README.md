@@ -1,30 +1,12 @@
-# Project Hyperion
+# Hyperion
 
-Hyperion is a client integration and network testing framework
+Hyperion is a system testing infrastructure for Sonic blockchain networks. It provides tools for running network scenarios, load testing, and monitoring blockchain performance.
 
-# Building and Running
+## Prerequisites
 
-## Requirements
-
-For building/running the project, the following tools are required:
-
-- Go: version 1.20 or later; we recommend to use your system's package manager; alternatively, you can follow Go's [installation manual](https://go.dev/doc/install) or; if you need to maintain multiple versions, [this tutorial](https://go.dev/doc/manage-install) describes how to do so
-- Docker: version 23.0 or later; we recommend to use your system's package manager or the installation manuals listed in the [Using Docker](#using-docker) section below
-- GNU make, or compatible
-- [R](https://www.r-project.org/): make sure the command `Rscript` is available on your system.
-  - To install R and all needed dependencies on Ubuntu, use `sudo apt install r-base-core pandoc libcurl4-openssl-dev libssl-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev`
-  - To install R packages manually (may be necessary for first-time R usage), start an R session by running the command `R`, and run the command `install.packages(c("rmarkdown", "tidyverse", "lubridate", "slider"))` inside the R session. You may be prompted to create a user-specific directory for library dependencies. If so, confirm this.
-
-Optionally, before running `make generate-mocks`, make sure you installed:
-
-- GoMock: `go install github.com/golang/mock/mockgen@v1.6.0`
-  - Make sure `$GOPATH/bin` is in your `$PATH`. `$GOPATH` defaults to `$HOME/go` if not set, i.e. configure `$PATH`
-  - either to `PATH=$GOPATH/bin:$PATH` or `PATH=$HOME/go/bin:$PATH`
-
-Optionally, before running `make generate-abi`, make sure you have installed:
-
-- Solidity Compiler (solc) - see [Installing the Solidity Compiler](https://docs.soliditylang.org/en/latest/installing-solidity.html)
-  - Install version [0.8.19](https://github.com/ethereum/solidity/releases/tag/v0.8.19)
+- Docker: https://docs.docker.com/get-docker/
+- go 1.24+: https://golang.org/doc/install
+- solc: https://docs.soliditylang.org/en/v0.8.13/installing-solidity.html
 - go-ethereum's abigen:
   - Checkout [go-ethereum](https://github.com/ethereum/go-ethereum/) `git clone https://github.com/ethereum/go-ethereum/`
   - Checkout the right version `git checkout v1.10.8`
@@ -39,7 +21,7 @@ To build the project, run
 make -j
 ```
 
-This will build the required docker images (make sure you have Docker access permissions!) and the Norma go application. To run tests, use
+This will build the required docker images (make sure you have Docker access permissions!) and the Hyperion go application. To run tests, use
 
 ```
 make test
@@ -49,16 +31,16 @@ To clean up a build, use `make clean`.
 
 ## Running
 
-To run Norma, you can run the `norma` executable created by the build process:
+To run Hyperion, you can run the `hyperion` executable created by the build process:
 
 ```
-build/norma <cmd> <args...>
+build/hyperion <cmd> <args...>
 ```
 
 To list the available commands, run
 
 ```
-build/norma
+build/hyperion
 ```
 
 # Developer Information
@@ -90,54 +72,41 @@ If the `newgrp docker` command is not working, a `reboot` might help.
 
 ### Docker Sock on MacOS
 
-If Norma tests produce error that Docker is not listening on `unix:///var/run/docker.sock`, execute
+If Hyperion tests produce error that Docker is not listening on `unix:///var/run/docker.sock`, execute
 
 - `docker context inspect` and make note of `Host`, which should be `unix:///$HOME/.docker/run/docker.sock`
 - export system variable, i.e. add to either `/etc/zprofile` or `$HOME/.zprofile`:
-- `export DOCKER_HOST=unix:///$HOME/.docker/run/docker.sock`
+  ```
+  export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock
+  ```
 
-alternatively
+## Scenarios
 
-- Open `Desktop Tool` --> `Settings` --> `Advanced` --> `Enable Default Docker socket`
-  - this will bind the docker socket to default `unix:///var/run/docker.sock`
+Scenarios are defined in YAML files and describe the network topology, applications, and test parameters. Examples can be found in the `scenarios/` directory.
 
-### Building
+## External Chain Support
 
-The experiments use the docker image that wraps the forked Opera/Norma client. The image is build as part of
-the build process, and can be explicitly triggered:
+Hyperion can connect to existing blockchain networks instead of creating new Docker containers. Use the `--external-rpc` flag to connect to your local chain:
 
-```
-make build-docker-image
-```
-
-### Commands
-
-During the development, a few Docker commands can come handy:
-
-```
-docker run -i -t -d opera         // runs container with Opera in background (without -d it would run in foreground)
-docker ps                         // shows running container
-docker exec -it <ID> /bin/sh      // opens interactive shell inside the container, the ID is obtained by previous command
-docker logs <ID>                  // prints stdout (log) of the container
-docker stop <ID>                  // stop (kills) the container
-docker rm -f $(docker ps -a -q)   // stop and clean everything
+```bash
+build/hyperion run scenarios/external_chain.yml --external-rpc http://localhost:18545 --external-chain-id 4002
 ```
 
 # Analyzing Build-In Metrics
 
-Norma manages and observes a network of Opera nodes and collects a set of metrics. The metrics are automatically enabled and their outcome is stored in a CSV file, which allows for later processing in spreadsheet software.
+Hyperion manages and observes a network of Opera nodes and collects a set of metrics. The metrics are automatically enabled and their outcome is stored in a CSV file, which allows for later processing in spreadsheet software.
 
 For instance, metric data can be generated by just running the example scenario:
 
 ```
-build/norma run scenarios/small.yml
+build/hyperion run scenarios/small.yml
 ```
 
 which produces a directory filled with measurment results, which is printed at the end of the application output. Look for two lines like
 
 ```
-Monitoring data was written to /tmp/norma_data_<random_number>
-Raw data was exported to /tmp/norma_data_<random_number>/measurements.csv
+Monitoring data was written to /tmp/hyperion_data_<random_number>
+Raw data was exported to /tmp/hyperion_data_<random_number>/measurements.csv
 ```
 
 The first line lists the directory in which all monitoring data was written to. This, in particular, includes the `measurements.csv` file, containing most of the collected monitoring data in a CSV format. It merges all the metrics in one file, and every line is one result of a single meassurement. The header of the file is:
@@ -212,16 +181,16 @@ As a last step, charts can be plot from the data as usual, like this:
 
 ## CPU Profile Data
 
-In addition to the Norma metrics, the `pprof` CPU proifile is collected every 10s from each node. The profiles are stored in the temp directory. The directory name is printed together with the Norma output, for instance:
+In addition to the Hyperion metrics, the `pprof` CPU proifile is collected every 10s from each node. The profiles are stored in the temp directory. The directory name is printed together with the Hyperion output, for instance:
 
 ```
-Monitoring data was written to /tmp/norma_data_1852477583
+Monitoring data was written to /tmp/hyperion_data_1852477583
 ```
 
 The directory has the following structure:
 
 ```
-/tmp/norma_data_<rand>
+/tmp/hyperion_data_<rand>
 + - cpu_profiles
   + - <node-name>
     + - <sample_number>.prof
@@ -235,7 +204,7 @@ These files can be transfered to a developer's machine, and analysed by running
 go tool pprof -http=":8000" <sample_number>.prof
 ```
 
-## Known Norma Restrictions
+## Known Hyperion Restrictions
 
 Known restrictions
 

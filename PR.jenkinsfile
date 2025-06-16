@@ -1,4 +1,4 @@
-// Norma CI test norma using "make test"
+// Hyperion CI test hyperion using "make test"
 
 pipeline {
 	agent { label 'x86-8-64-m' }
@@ -25,7 +25,7 @@ pipeline {
 	        }
 	    }
 
-		stage('Check Norma Format') {
+		stage('Check Hyperion Format') {
 			steps {
 				catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
 					sh 'diff=`${GOROOT}/bin/gofmt -l \$(find . -type f -name "*.go"| grep -v "/client/")`; echo "$diff"; test -z "$diff"'
@@ -33,7 +33,7 @@ pipeline {
 			}
 		}
 
-		stage('Make Norma') {
+		stage('Make Hyperion') {
 			steps {
 				sh 'make clean'
 				sh 'git submodule update --init --recursive'
@@ -41,7 +41,7 @@ pipeline {
 			}
 		}
 
-		stage('Test Norma') {
+		stage('Test Hyperion') {
 			steps {
 			    sh 'cd genesis && go test ./...'
 				sh 'go test ./...  -p 2 --parallel 2 --timeout 30m'

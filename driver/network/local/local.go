@@ -1,18 +1,18 @@
 // Copyright 2024 Fantom Foundation
-// This file is part of Norma System Testing Infrastructure for Sonic.
+// This file is part of Hyperion System Testing Infrastructure for Sonic.
 //
-// Norma is free software: you can redistribute it and/or modify
+// Hyperion is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Norma is distributed in the hope that it will be useful,
+// Hyperion is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with Norma. If not, see <http://www.gnu.org/licenses/>.
+// along with Hyperion. If not, see <http://www.gnu.org/licenses/>.
 
 package local
 
@@ -20,21 +20,21 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/0xsoniclabs/norma/genesistools/genesis"
-	"github.com/0xsoniclabs/norma/genesistools/network"
+	"github.com/0xsoniclabs/hyperion/genesistools/genesis"
+	"github.com/0xsoniclabs/hyperion/genesistools/network"
 	"log"
 	"math/rand"
 	"sync"
 	"sync/atomic"
 
-	"github.com/0xsoniclabs/norma/driver"
-	"github.com/0xsoniclabs/norma/driver/docker"
-	"github.com/0xsoniclabs/norma/driver/network/rpc"
-	"github.com/0xsoniclabs/norma/driver/node"
-	rpcdriver "github.com/0xsoniclabs/norma/driver/rpc"
-	"github.com/0xsoniclabs/norma/load/app"
-	"github.com/0xsoniclabs/norma/load/controller"
-	"github.com/0xsoniclabs/norma/load/shaper"
+	"github.com/0xsoniclabs/hyperion/driver"
+	"github.com/0xsoniclabs/hyperion/driver/docker"
+	"github.com/0xsoniclabs/hyperion/driver/network/rpc"
+	"github.com/0xsoniclabs/hyperion/driver/node"
+	rpcdriver "github.com/0xsoniclabs/hyperion/driver/rpc"
+	"github.com/0xsoniclabs/hyperion/load/app"
+	"github.com/0xsoniclabs/hyperion/load/controller"
+	"github.com/0xsoniclabs/hyperion/load/shaper"
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
