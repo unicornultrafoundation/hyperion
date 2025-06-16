@@ -1,0 +1,17 @@
+# Configuration for connecting to existing external chain
+name: External Chain Connection
+duration: 300 # Run for 5 minutes
+
+# No validators or nodes defined - we'll connect to external chain
+# validators: []
+# nodes: []
+
+# Only define applications to run against your existing chain
+applications:
+  - name: test-load
+    type: counter
+    start: 10 # Start after 10 seconds
+    end: 290 # End before scenario ends
+    users: 5 # Number of test accounts
+    rate:
+      constant: 2 # Low rate for testing
